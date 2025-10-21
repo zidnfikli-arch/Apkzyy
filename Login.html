@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebApi-Login</title>
+
+  <!-- Icon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #000;
+      --text: #e6e6e6;
+      --gray-dark: #111;
+      --gray: #222;
+      --gray-light: #444;
+      --muted: #9a9a9a;
+      --accent: #00ffcc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 28px 26px;
+      border-radius: 18px;
+      background: var(--gray-dark);
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.05);
+    }
+
+    .logo {
+      width: 230px;
+      height: 230px;
+      margin: 0 auto 20px;
+      border-radius: 18px;
+      border: 2px solid var(--gray-light);
+      object-fit: cover;
+      display: block;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .form-group i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 16px 16px 16px 46px;
+      border-radius: 12px;
+      border: 1px solid var(--gray-light);
+      background: var(--gray);
+      color: var(--text);
+      font-size: 17px;
+    }
+
+    input::placeholder {
+      color: #777;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    /* Tombol Masuk keren */
+    .btn-masuk {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00ffcc, #0077ff);
+      color: #000;
+      margin-top: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    }
+
+    .btn-masuk i {
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-masuk::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+    }
+
+    .btn-masuk:hover::before {
+      left: 120%;
+    }
+
+    .btn-masuk:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+    }
+
+    .btn-masuk:hover i {
+      transform: translateX(4px);
+    }
+
+    .buy-access {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--gray-light);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .buy-access:hover {
+      background: #555;
+    }
+
+    /* Toast Notification */
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      z-index: 1000;
+      animation: fadeInOut 4s ease;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        bottom: 10px;
+      }
+
+      10%,
+      90% {
+        opacity: 1;
+        bottom: 30px;
+      }
+
+      100% {
+        opacity: 0;
+        bottom: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container profile">
+    <img class="logo" src="https://files.catbox.moe/amqzce.jpg" alt="PororoKiller logo">
+
+    <h1 class="title">PororoKiller</h1>
+    <div class="subtitle">Acces generate</div>
+
+    <form method="POST" action="/auth">
+      <div class="form-group">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" placeholder="Username" required />
+      </div>
+      <div class="form-group">
+        <i class="fas fa-key"></i>
+        <input type="text" name="key" placeholder="Password" required />
+      </div>
+
+      <button type="submit" class="btn-masuk">
+        <i class="fas fa-arrow-right"></i> 𝗠𝗮𝘀𝘂𝗸
+      </button>
+    </form>
+
+    <a class="buy-access" href="https://t.me/ZidxyzzEllThomas" target="_blank" rel="noopener">
+      <i class="fas fa-coins" style="margin-right:8px;"></i> Buy Key Users Access
+    </a>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get("msg");
+    if (msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.style.display = "block";
+    }
+  </script>
+</body>
+
+</html>
